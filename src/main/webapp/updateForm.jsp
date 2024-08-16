@@ -1,3 +1,7 @@
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,22 +15,63 @@
 	<jsp:include page="01_header.jsp" />
 	
 	<%
-		String[] idList = (String[]) session.getAttribute("idList");
-		String[] pwList = (String[]) session.getAttribute("pwList");
-		String[] nameList = (String[]) session.getAttribute("nameList");
-		String[] genderList = (String[]) session.getAttribute("genderList");
-	
-		int count = (int) session.getAttribute("count");
-	
 		String log = (String) session.getAttribute("log");
 	
-		int index = 0;
-		for (int i = 0; i < count; i++) {
-			if (idList[i].equals(log)) {
-				index = i;
-				break;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String dbUrl = "jdbc:mysql://localhost:3306/haraDB?serverTimezone=UTC&useSSL=false";
+		String dbId = "root";
+		String dbPw = "root";
+		
+		int check = 0;
+		
+		String pw = "";
+		String name = "";
+		String gender = "";
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(dbUrl, dbId, dbPw);
+		
+			String sql = " SELECT pw, name, gender FROM member WHERE id=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, log);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				pw = rs.getString(1);
+				name = rs.getString(2);
+				gender = rs.getString(3);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			conn.close();
+			pstmt.close();
+			rs.close();
 		}
+	%>	
+	
+	<%
+//		String[] idList = (String[]) session.getAttribute("idList");
+//		String[] pwList = (String[]) session.getAttribute("pwList");
+//		String[] nameList = (String[]) session.getAttribute("nameList");
+//		String[] genderList = (String[]) session.getAttribute("genderList");
+	
+//		int count = (int) session.getAttribute("count");
+	
+//		String log = (String) session.getAttribute("log");
+	
+//		int index = 0;
+//		for (int i = 0; i < count; i++) {
+//			if (idList[i].equals(log)) {
+//				index = i;
+//				break;
+//			}
+//		}
+
 	%>
 	
 	<div align="center">
@@ -39,22 +84,22 @@
 				</tr>
 				<tr>
 					<td>비밀번호</td>
-					<td><input type="password" name="pw" value="<%=pwList[index]%>"></td>
+					<td><input type="password" name="pw" value="<%=pw %>"></td>
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td><input type="text" name="name" value="<%=nameList[index]%>"></td>
+					<td><input type="text" name="name" value="<%=name %>"></td>
 				</tr>
 				<tr>
 					<td>성별</td>
 					<td>
 					<%
-						if(genderList[index].equals("남성")) {
+						if(gender.equals("남성")) {
 					%>
 						<input type="radio" name="gender" value="남성" checked="checked">남성 
 						<input type="radio" name="gender" value="여성">여성
 						<input type="radio" name="gender" value="선택안함">선택안함
-					<% } else if(genderList[index].equals("여성")) {
+					<% } else if(gender.equals("여성")) {
 					%>
 						<input type="radio" name="gender" value="남성">남성 
 						<input type="radio" name="gender" value="여성" checked="checked">여성
@@ -74,7 +119,7 @@
 			</table>
 		</form>
 		<br><br>
-		<input type="button" value="메인화면" onclick="location.href='main.jsp'">
+		<input type="button" value="메인화면" onclick="location.href='index.jsp'">
 	</div>
 	
 	<%-- footer --%>

@@ -15,7 +15,7 @@
 		<a href="logoutPro.jsp">로그아웃</a><br>
 		<a href="adminUserList.jsp">회원관리</a>
 		<br><br>
-		<input type="button" value="메인화면" onclick="location.href='main.jsp'">
+		<input type="button" value="메인화면" onclick="location.href='index.jsp'">
 	</div>
 	
 	<%-- footer --%>

@@ -1,48 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%
-	request.setCharacterEncoding("UTF-8");
-
-	// 회원 샘플 데이터 저장
-	String[] sampleId = { "가오리", "수달", "강아지", "고양이" };
-	String[] samplePw = { "1111", "2222", "3333", "4444" };
-	String[] sampleName = { "현광용", "홍민주", "정소라", "고유나" };
-	String[] sampleGender = { "남성", "선택안함", "여성", "선택안함" };
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hara</title>
+</head>
+<body>
+	<%-- header --%>
+	<jsp:include page="01_header.jsp" />
 	
-	// 저장할 수 있는 최대 회원 수
-	int size = 100;
-	String[] idList = new String[size];
-	String[] pwList = new String[size];
-	String[] nameList = new String[size];
-	String[] genderList = new String[size];
+	<div align="center">
+		<table border="1">
+			<tr>
+				<td align="center">
+					<% String log = (String) session.getAttribute("log"); %>
+					<% if (log == null) { %>
+						<a href="joinForm.jsp">회원가입</a>
+						<a href="loginForm.jsp">로그인</a>
+						<a href="loginAdminForm.jsp">관리자</a>						
+					<% } else { %>
+						[<strong><%=log %></strong>님 반갑습니다.]
+						<a href="boardIndex.jsp">게시판</a>
+						<a href="logoutPro.jsp">로그아웃</a>
+						<a href="updateForm.jsp">회원정보수정</a>
+						<a href="deleteForm.jsp">회원탈퇴</a>										
+					<% } %>
+				</td>
+			</tr>
+		</table><br>
+	<img src="img/pinocchio.png" height="300"><br><br>
+	봐 이게 내가 만든 홈페이지야
+	</div>
 	
-	// 저장된 회원 수
-	int count = sampleId.length;
-	for (int i = 0; i < count; i++) {
-		idList[i] = sampleId[i];
-		pwList[i] = samplePw[i];
-		nameList[i] = sampleName[i];
-		genderList[i] = sampleGender[i];
-	}
-	
-	// 전체 회원정보 출력
-	for (int i = 0; i < count; i++) {
-		System.out.println(idList[i] + ", " + pwList[i] + ", " + nameList[i] + ", " + genderList[i]);
-	}
-	
-	// 로그인 상태를 확인할 수 있는 log 변수를 세션에 저장
-	session.setAttribute("log", null);
-	
-	// 전체 회원 수 세션에 저장
-	session.setAttribute("count", count);
-	
-	// 세션에 회원정보 저장
-	session.setAttribute("idList", idList);
-	session.setAttribute("pwList", pwList);
-	session.setAttribute("nameList", nameList);
-	session.setAttribute("genderList", genderList);
-	
-	// 메인 페이지 이동
-	response.sendRedirect("main.jsp");
-%>
+	<%-- footer --%>
+	<jsp:include page="02_footer.jsp" />	
+</body>
+</html>

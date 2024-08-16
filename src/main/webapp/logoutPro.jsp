@@ -2,10 +2,14 @@
 	pageEncoding="UTF-8"%>
 
 <%
-	request.setCharacterEncoding("UTF-8");
+	session.invalidate();
+
+	response.sendRedirect("index.jsp");
+
+//	request.setCharacterEncoding("UTF-8");
 	
-	// 특정 세션 한 개를 지정해서 삭제
-	session.removeAttribute("log");
+//	// 특정 세션 한 개를 지정해서 삭제
+//	session.removeAttribute("log");
 	
-	response.sendRedirect("main.jsp");
+//	response.sendRedirect("main.jsp");
 %>

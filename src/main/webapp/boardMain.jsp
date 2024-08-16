@@ -40,7 +40,7 @@
 			</tr>
 		</table>
 		<br><br>
-		<input type="button" value="메인화면" onclick="location.href='main.jsp'">
+		<input type="button" value="메인화면" onclick="location.href='index.jsp'">
 	</div>
 
 	<%-- footer --%>
