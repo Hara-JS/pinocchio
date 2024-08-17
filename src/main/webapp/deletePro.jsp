@@ -12,9 +12,9 @@
 	String id = (String)session.getAttribute("log");
 	String pw = request.getParameter("pw");
 	
-	String dbUrl = "jdbc:mysql://localhost:3306/haraDB?serverTimezone=UTC&useSSL=false";
-	String dbId = "root";
-	String dbPw = "root";
+	String dbUrl = "jdbc:mysql://localhost:3306/hara1029?serverTimezone=UTC&useSSL=false";
+	String dbId = "hara1029";
+	String dbPw = "q1w2e3r4!";
 
 	Connection conn = null;
 	PreparedStatement pstmt = null;

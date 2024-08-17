@@ -22,12 +22,12 @@
 		ResultSet rs = null;
 	
 		try {
-			String jdbcUrl = "jdbc:mysql://localhost:3306/haraDB?serverTimezone=UTC&useSSL=false";
-			String dbId = "root";
-			String dbPw = "root";
+			String dbUrl = "jdbc:mysql://localhost:3306/hara1029?serverTimezone=UTC&useSSL=false";
+			String dbId = "hara1029";
+			String dbPw = "q1w2e3r4!";
 	
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(jdbcUrl, dbId, dbPw);
+			conn = DriverManager.getConnection(dbUrl, dbId, dbPw);
 	
 			String sql = " SELECT * FROM ";
 			pstmt = conn.prepareStatement(sql);

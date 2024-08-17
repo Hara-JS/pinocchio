@@ -1,6 +1,6 @@
-CREATE DATABASE haraDB;
+CREATE DATABASE hara1029;
 
-USE haraDB;
+USE hara1029;
 
 CREATE TABLE member (
 	id VARCHAR(10),
